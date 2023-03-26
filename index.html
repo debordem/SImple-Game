@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #player{ 
+            position:fixed;
+                top: 0; /*[wherever you want it]*/
+                left:0; /*[wherever you want it]*/
+                width:10px;
+                height:10px;
+                background-color: red;}
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+    
+</body>
+<script>
+    let player = document.getElementById("player");
+    console.log(player)
+    let step = 5;
+    let leftValue = 0;
+    let topValue = 0;
+    document.addEventListener('keydown', function(event){
+        console.log(event.code);
+
+        // Move
+     
+        switch(event.code){
+            case "ArrowRight":  leftValue += step; break;
+            case "ArrowLeft":  leftValue -= step; break;
+            case "ArrowUp":  topValue -= step; break;
+            case "ArrowDown":  topValue += step; break;
+        }
+
+        // Collision Detection
+
+
+        // Edge Detection
+
+        player.style.left = leftValue + "px"
+        player.style.top = topValue + "px"
+     
+     
+
+    });
+
+
+    
+
+</script>
+
+
+</html>
