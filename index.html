@@ -13,41 +13,84 @@
                 width:10px;
                 height:10px;
                 background-color: red;}
+
+        .wall{ 
+            position:fixed;
+                top: 0; /*[wherever you want it]*/
+                left:100px; /*[wherever you want it]*/
+                width:50px;
+                height:50px;
+                background-color: rgb(94, 255, 0);}
     </style>
 </head>
 <body>
     <div id="player"></div>
+
+    <div class="wall"></div>
     
 </body>
 <script>
     let player = document.getElementById("player");
     console.log(player)
+
     let step = 5;
-    let leftValue = 0;
-    let topValue = 0;
-    document.addEventListener('keydown', function(event){
+
+    // Add event listener to the page
+    document.addEventListener('keydown', (event) => keyFunction(event));
+    
+    // function to 
+    function keyFunction(event){
         console.log(event.code);
+
+        let coords = player.getBoundingClientRect()
+
+        console.log(coords);
+       
 
         // Move
      
         switch(event.code){
-            case "ArrowRight":  leftValue += step; break;
-            case "ArrowLeft":  leftValue -= step; break;
-            case "ArrowUp":  topValue -= step; break;
-            case "ArrowDown":  topValue += step; break;
+            case "ArrowRight":  moveRight(player) ; break;
+            case "ArrowLeft":  player.style.left = coords.left - step + "px" ; break;
+            case "ArrowUp":  player.style.top = coords.top - step + "px" ; break;
+            case "ArrowDown":   player.style.top = coords.top + step + "px" ; break;
         }
 
         // Collision Detection
-
+        //console.log(playerPosition.top)
 
         // Edge Detection
 
-        player.style.left = leftValue + "px"
-        player.style.top = topValue + "px"
+        // player.style.left = leftValue + "px"
+         //player.style.top = playerPosition.top + "px"
      
      
 
-    });
+    };
+
+    function moveRight(element) {
+        console.log("Move Right")
+        let coords = element.getBoundingClientRect();
+
+        // test for collision
+        let elem = document.elementFromPoint(coords.right, coords.y  );
+        console.log(elem)
+        
+        if (elem.classList.contains("wall")){
+            console.log("Hit Wall")
+
+            element.style.left = coords.left;
+        }
+        else{
+             element.style.left = coords.left + step + "px"
+        }
+
+
+       
+
+    }
+
+ 
 
 
     
