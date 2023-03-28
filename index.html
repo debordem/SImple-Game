@@ -33,7 +33,15 @@
     let PLAYER = document.getElementById("player");
     console.log(PLAYER)
 
-    let step = 5;
+    let step = 2;
+
+    // Gravity
+    //https://www.youtube.com/watch?v=b5AryiZ6Z-s
+    setInterval(function Gravity(){
+        let coords = PLAYER.getBoundingClientRect();
+        PLAYER.style.top = coords.top + 0.05 + "px";
+    })
+ 
 
     // Add event listener to the page
     document.addEventListener('keydown', (event) => keyFunction(event));
