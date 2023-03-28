@@ -30,8 +30,8 @@
     
 </body>
 <script>
-    let player = document.getElementById("player");
-    console.log(player)
+    let PLAYER = document.getElementById("player");
+    console.log(PLAYER)
 
     let step = 5;
 
@@ -73,7 +73,7 @@
         let coords = element.getBoundingClientRect();
 
         // test for collision
-        let elem = document.elementFromPoint(coords.right, coords.y  );
+        let elem = document.elementFromPoint(coords.right, coords.top  );
         console.log(elem)
         
         if (elem.classList.contains("wall")){
