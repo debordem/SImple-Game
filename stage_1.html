@@ -4,191 +4,135 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Javascript Game Stage#1</title>
+    <title>Demo GAME</title>
     <style>
-        #player{ 
-            position:fixed;
-                top: 20px; /*[wherever you want it]*/
-                left:20px; /*[wherever you want it]*/
-                width:10px;
-                height:10px;
-                background-color: red;}
+        /*Style sheet */
 
-        .wall{ 
-            position:fixed;
-                top: 0; /*[wherever you want it]*/
-                left:100px; /*[wherever you want it]*/
-                width:50px;
-                height:50px;
-                background-color: rgb(94, 255, 0);}
+        #player{
+              position:fixed;
+
+            top: 20px; /*[wherever you want it]*/
+            left:20px; /*[wherever you want it]*/
+            width:10px;
+            height:10px;
+            background-color: red;
+
+        }
 
         .play_area{
 
             position:fixed;
-                top: 20px; /*[wherever you want it]*/
-                left:20px; /*[wherever you want it]*/
-                width:200px;
-                height:200px;
-                background-color: yellowgreen;}
+            top: 20px; /*[wherever you want it]*/
+            left:20px; /*[wherever you want it]*/
+            width:200px;
+            height:200px;
+            background-color: yellowgreen;
 
-              
+        }
+
     </style>
 </head>
 <body>
-
-    <div class="play_area">
-    <div id="player"></div>
-
- 
-
+    <div class="play_area"></div>
+        <div id="player"></div> 
     </div>
     
 </body>
-<script>
-    let player = document.getElementById("player");
-    console.log(player)
 
-    let step = 5;
+<script>
+    /*Javascript*/
+
+    // GLOBAL VARIABLES
+    // player element
+    let PLAYER = document.getElementById("player");
+    console.log(player)
+    // step of movement
+    let STEP = 5;
 
     // Add event listener to the page
     document.addEventListener('keydown', (event) => keyFunction(event));
     
-    // function to 
+    // function to respond to the keypress event
     function keyFunction(event){
-        console.log(event.code);
+        console.log(event.code); 
 
-        let coords = player.getBoundingClientRect()
-
+        let coords = PLAYER.getBoundingClientRect();
         console.log(coords);
-       
 
-        // Move
-     
+        let elem;
+
         switch(event.code){
-            case "ArrowRight":  moveRight(player) ; break;
-            case "ArrowLeft":  moveLeft(player) ; break;
-            case "ArrowUp":  moveUp(player) ; break;
-            case "ArrowDown":   moveDown(player) ; break;
+            case "ArrowRight": 
+
+                 // find out what is at the right top corner of the player
+                elem = document.elementFromPoint(coords.right, coords.top  );
+                console.log(elem)
+            
+                if (elem.classList.contains("play_area")){
+                    PLAYER.style.left = coords.left + STEP + "px";
+                    }
+                else{
+                    console.log("Hit the Wall")
+                    PLAYER.style.left = coords.left;
+                    }
+
+            break;
+            case "ArrowLeft":  
+
+             // find out what is at the right top corner of the player
+                elem = document.elementFromPoint(coords.left - 1, coords.top  );
+                console.log(elem)
+            
+                if (elem.classList.contains("play_area")){
+                    PLAYER.style.left = coords.left - STEP + "px";
+                    }
+                else{
+                    console.log("Hit the Wall")
+                    PLAYER.style.left = coords.left;
+                    }
+            
+          
+            
+            break;
+            case "ArrowUp":  
+
+                elem = document.elementFromPoint(coords.left, coords.top - 1  );
+                console.log(elem)
+            
+                if (elem.classList.contains("play_area")){
+                    PLAYER.style.top = coords.top - STEP + "px";
+                    }
+                else{
+                    console.log("Hit the Wall")
+                    PLAYER.style.top = coords.top;
+                    }
+            
+          
+            
+            break;
+            case "ArrowDown":   
+
+                elem = document.elementFromPoint(coords.left, coords.bottom  );
+                console.log(elem)
+            
+                if (elem.classList.contains("play_area")){
+                    PLAYER.style.top = coords.top + STEP + "px";
+                    }
+                else{
+                    console.log("Hit the Wall")
+                    PLAYER.style.top = coords.top;
+                    }
+            
+           
+            
+            break;
         }
 
-        // Collision Detection
-        //console.log(playerPosition.top)
-
-        // Edge Detection
-
-        // player.style.left = leftValue + "px"
-         //player.style.top = playerPosition.top + "px"
-     
-     
-
-    };
-
-    function moveRight(element) {
-        console.log("Move Right")
-        let coords = element.getBoundingClientRect();
-
-        // test for collision
-        let elem = document.elementFromPoint(coords.right, coords.y  );
-        console.log(elem)
-
-        switch(true){
-            case elem.classList.contains("wall"): 
-                console.log("Hit Wall");
-                element.style.left = coords.left;
-                break;
-            case !elem.classList.contains("play_area"): 
-                console.log("Out of Bounds");
-                element.style.left = coords.left;
-                break;
-            default:
-                element.style.left = coords.left + step + "px";
-                break;
-
-        }
- 
     }
 
-    function moveLeft(element) {
-        console.log("Move Left")
-        let coords = element.getBoundingClientRect();
 
-        // test for collision
-        let elem = document.elementFromPoint(coords.left - step, coords.y  );
-        console.log(elem)
+   
 
-        switch(true){
-            case elem.classList.contains("wall"): 
-                console.log("Hit Wall");
-                element.style.left = coords.left;
-                break;
-            case !elem.classList.contains("play_area"): 
-                console.log("Out of Bounds");
-                element.style.left = coords.left;
-                break;
-            default:
-                element.style.left = coords.left - step + "px";
-                break;
-
-        }
- 
-    }
-
-    function moveUp(element) {
-        console.log("Move Up")
-        let coords = element.getBoundingClientRect();
-
-        // test for collision
-        let elem = document.elementFromPoint(coords.left, coords.top - step  );
-        console.log(elem)
-
-        switch(true){
-            case elem.classList.contains("wall"): 
-                console.log("Hit Wall");
-                element.style.top = coords.top;
-                break;
-            case !elem.classList.contains("play_area"): 
-                console.log("Out of Bounds");
-                element.style.top = coords.top;
-                break;
-            default:
-                element.style.top = coords.top - step + "px";
-                break;
-
-        }
- 
-    }
-
-    function moveDown(element) {
-        console.log("Move Down")
-        let coords = element.getBoundingClientRect();
-
-        // test for collision
-        let elem = document.elementFromPoint(coords.left, coords.bottom  );
-        console.log(elem)
-
-        switch(true){
-            case elem.classList.contains("wall"): 
-                console.log("Hit Wall");
-                element.style.top = coords.top;
-                break;
-            case !elem.classList.contains("play_area"): 
-                console.log("Out of Bounds");
-                element.style.top = coords.top;
-                break;
-            default:
-                element.style.top = coords.top + step + "px";
-                break;
-
-        }
- 
-    }
-
- 
-
-
-    
 
 </script>
-
-
 </html>

@@ -59,11 +59,13 @@
         let coords = PLAYER.getBoundingClientRect();
         console.log(coords);
 
+        let elem;
+
         switch(event.code){
             case "ArrowRight": 
 
                  // find out what is at the right top corner of the player
-                let elem = document.elementFromPoint(coords.right, coords.top  );
+                elem = document.elementFromPoint(coords.right, coords.top  );
                 console.log(elem)
             
                 if (elem.classList.contains("play_area")){
@@ -75,9 +77,55 @@
                     }
 
             break;
-            case "ArrowLeft":  PLAYER.style.left = coords.left - STEP + "px" ; break;
-            case "ArrowUp":  PLAYER.style.top = coords.top - STEP + "px" ; break;
-            case "ArrowDown":   PLAYER.style.top = coords.top + STEP + "px" ; break;
+            case "ArrowLeft":  
+
+             // find out what is at the right top corner of the player
+                elem = document.elementFromPoint(coords.left - 1, coords.top  );
+                console.log(elem)
+            
+                if (elem.classList.contains("play_area")){
+                    PLAYER.style.left = coords.left - STEP + "px";
+                    }
+                else{
+                    console.log("Hit the Wall")
+                    PLAYER.style.left = coords.left;
+                    }
+            
+          
+            
+            break;
+            case "ArrowUp":  
+
+                elem = document.elementFromPoint(coords.left, coords.top - 1  );
+                console.log(elem)
+            
+                if (elem.classList.contains("play_area")){
+                    PLAYER.style.top = coords.top - STEP + "px";
+                    }
+                else{
+                    console.log("Hit the Wall")
+                    PLAYER.style.top = coords.top;
+                    }
+            
+          
+            
+            break;
+            case "ArrowDown":   
+
+                elem = document.elementFromPoint(coords.left, coords.bottom  );
+                console.log(elem)
+            
+                if (elem.classList.contains("play_area")){
+                    PLAYER.style.top = coords.top + STEP + "px";
+                    }
+                else{
+                    console.log("Hit the Wall")
+                    PLAYER.style.top = coords.top;
+                    }
+            
+           
+            
+            break;
         }
 
     }
