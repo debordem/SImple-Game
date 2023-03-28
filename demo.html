@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Demo GAME</title>
     <style>
         /*Style sheet */
 
@@ -40,7 +40,33 @@
 </body>
 
 <script>
-    /*Javascript*.
+    /*Javascript*/
+
+    // GLOBAL VARIABLES
+    // player element
+    let PLAYER = document.getElementById("player");
+    console.log(player)
+    // step of movement
+    let STEP = 5;
+
+    // Add event listener to the page
+    document.addEventListener('keydown', (event) => keyFunction(event));
+    
+    // function to respond to the keypress event
+    function keyFunction(event){
+        console.log(event.code); 
+
+        let coords = PLAYER.getBoundingClientRect();
+        console.log(coords);
+
+        switch(event.code){
+            case "ArrowRight":  console.log("Move Right") ; break;
+            case "ArrowLeft":  console.log("Move Left") ; break;
+            case "ArrowUp":  console.log("Move Up") ; break;
+            case "ArrowDown":   console.log("Move Down") ; break;
+        }
+
+    }
 
 
 </script>
