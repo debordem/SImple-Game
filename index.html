@@ -36,12 +36,15 @@
     let step = 2;
 
     // Gravity
-    //https://www.youtube.com/watch?v=b5AryiZ6Z-s
+    // https://www.youtube.com/watch?v=b5AryiZ6Z-s
     setInterval(function Gravity(){
         let coords = PLAYER.getBoundingClientRect();
         PLAYER.style.top = coords.top + 0.05 + "px";
     })
- 
+
+    
+
+  
 
     // Add event listener to the page
     document.addEventListener('keydown', (event) => keyFunction(event));
@@ -58,7 +61,7 @@
         // Move
      
         switch(event.code){
-            case "ArrowRight": player.style.left = coords.left + step + "px" ; break;
+            case "ArrowRight": moveRight(PLAYER) ; break;
             case "ArrowLeft":  player.style.left = coords.left - step + "px" ; break;
             case "ArrowUp":  player.style.top = coords.top - step + "px" ; break;
             case "ArrowDown":   player.style.top = coords.top + step + "px" ; break;
@@ -79,6 +82,8 @@
     function moveRight(element) {
         console.log("Move Right")
         let coords = element.getBoundingClientRect();
+
+    
 
         // test for collision
         let elem = document.elementFromPoint(coords.right, coords.top  );
