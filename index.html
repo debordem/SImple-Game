@@ -46,14 +46,10 @@
 
     let SPEED = 30;
 
-
-
     console.log(PLAYER)
 
-    
 
-    // Gravity
-    // https://www.youtube.com/watch?v=b5AryiZ6Z-s
+    // FUNCTION THAT REPEATS EVERY VALUE OF SPEEED
 
     // Animation for the Game default repeats every 10 ms
     setInterval(function Animation(){
@@ -64,10 +60,13 @@
         // set the new coordinates of the player 
         playerCheckBoundaryCollision()
 
-       
+        // generic move function
         moveElement(PLAYER,PLAYER_TOP,PLAYER_LEFT);
 
     },SPEED)
+
+
+    
 
 
     // function to check if the player collides with a 
@@ -92,34 +91,16 @@
     }
 
 
-    
-
-  
-
     // Add event listener to the page
-    document.addEventListener('keydown', (event) => keyPressedFunction(event));
-    
-    // function to 
-    function keyPressedFunction(event){
-        console.log(event.code);
-        // Move
-     
+    document.addEventListener('keydown', function(event) {
+        console.log(event.code)
         switch(event.code){
             case "ArrowRight": MOVE_LEFT = + STEP; MOVE_TOP = 0 ; break;
             case "ArrowLeft": MOVE_LEFT = - STEP; MOVE_TOP = 0; break;
             case "ArrowUp":  MOVE_TOP = - STEP ; break;
             case "ArrowDown":   MOVE_TOP = + STEP ; break;
         }
-
-      
-     
-
-    };
-
-    
-
- 
-
+    });
 
     
 
