@@ -29,79 +29,94 @@
     <div class="wall"></div>
     
 </body>
+
 <script>
+    // GLOBAL VARIABLES
     let PLAYER = document.getElementById("player");
+
+    // coordinates for the player
+    let PLAYER_TOP;
+    let PLAYER_LEFT;
+
+    // direction of the movement true = positive, false = negative
+    let MOVE_TOP = 0;
+    let MOVE_LEFT = 0;
+
+    let STEP = 2;
+
+    let SPEED = 30;
+
+
+
     console.log(PLAYER)
 
-    let step = 2;
+    
 
     // Gravity
     // https://www.youtube.com/watch?v=b5AryiZ6Z-s
-    setInterval(function Gravity(){
+
+    // Animation for the Game default repeats every 10 ms
+    setInterval(function Animation(){
+
+        // set the new coordinates of the player 
+        playerNewCordinates();
+
+        // set the new coordinates of the player 
+        playerCheckBoundaryCollision()
+
+       
+        moveElement(PLAYER,PLAYER_TOP,PLAYER_LEFT);
+
+    },SPEED)
+
+
+    // function to check if the player collides with a 
+    function playerCheckBoundaryCollision(){
+        // if the top or bottom are reached change direction
+        if (PLAYER_TOP <= 0 || PLAYER_TOP >= 200){ MOVE_TOP = - MOVE_TOP };
+    }
+
+
+    // get sthe new coordinates for the player
+    function playerNewCordinates(){
         let coords = PLAYER.getBoundingClientRect();
-        PLAYER.style.top = coords.top + 0.05 + "px";
-    })
+        PLAYER_TOP = coords.top + MOVE_TOP;
+        PLAYER_LEFT = coords.left + MOVE_LEFT;
+    }
+
+
+    // generic moveElement function with element, top and left parameters
+    function moveElement(element,top,left){
+        element.style.top = top + "px" ;
+        element.style.left =  left + "px" ;
+    }
+
 
     
 
   
 
     // Add event listener to the page
-    document.addEventListener('keydown', (event) => keyFunction(event));
+    document.addEventListener('keydown', (event) => keyPressedFunction(event));
     
     // function to 
-    function keyFunction(event){
+    function keyPressedFunction(event){
         console.log(event.code);
-
-        let coords = player.getBoundingClientRect()
-
-        console.log(coords);
-       
-
         // Move
      
         switch(event.code){
-            case "ArrowRight": moveRight(PLAYER) ; break;
-            case "ArrowLeft":  player.style.left = coords.left - step + "px" ; break;
-            case "ArrowUp":  player.style.top = coords.top - step + "px" ; break;
-            case "ArrowDown":   player.style.top = coords.top + step + "px" ; break;
+            case "ArrowRight": MOVE_LEFT = + STEP; MOVE_TOP = 0 ; break;
+            case "ArrowLeft": MOVE_LEFT = - STEP; MOVE_TOP = 0; break;
+            case "ArrowUp":  MOVE_TOP = - STEP ; break;
+            case "ArrowDown":   MOVE_TOP = + STEP ; break;
         }
 
-        // Collision Detection
-        //console.log(playerPosition.top)
-
-        // Edge Detection
-
-        // player.style.left = leftValue + "px"
-         //player.style.top = playerPosition.top + "px"
-     
+      
      
 
     };
 
-    function moveRight(element) {
-        console.log("Move Right")
-        let coords = element.getBoundingClientRect();
-
     
-
-        // test for collision
-        let elem = document.elementFromPoint(coords.right, coords.top  );
-        console.log(elem)
-        
-        if (elem.classList.contains("wall")){
-            console.log("Hit Wall")
-
-            element.style.left = coords.left;
-        }
-        else{
-             element.style.left = coords.left + step + "px"
-        }
-
-
-       
-
-    }
 
  
 
